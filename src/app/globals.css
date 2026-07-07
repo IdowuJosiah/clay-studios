@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --maroon: #692b2b;
+  --maroon-700: #572423;
+  --maroon-900: #351616;
+  --cream: #efecec;
+  --cream-50: #f8f6f5;
+  --ink: #241414;
+  --gold: #b6905f;
+  --line: rgba(36, 20, 20, 0.1);
+}
+
+@theme inline {
+  --color-maroon: var(--maroon);
+  --color-maroon-700: var(--maroon-700);
+  --color-maroon-900: var(--maroon-900);
+  --color-cream: var(--cream);
+  --color-cream-50: var(--cream-50);
+  --color-ink: var(--ink);
+  --color-gold: var(--gold);
+  --color-line: var(--line);
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(36, 20, 20, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 20, 20, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
