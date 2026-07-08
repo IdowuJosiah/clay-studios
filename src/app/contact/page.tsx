@@ -52,7 +52,7 @@ export default function ContactPage() {
           </ContactCard>
         </div>
 
-        <div className="mt-12 flex flex-col items-start gap-4 rounded-3xl bg-maroon p-10 text-cream-50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col items-start gap-4 rounded-lg bg-maroon p-10 text-cream-50 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="font-display text-2xl font-bold">
               Ready to start?
@@ -78,7 +78,7 @@ function ContactCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-3xl border border-line bg-cream-50 p-6">
+    <div className="rounded-lg border border-line bg-cream-50 p-6">
       <p className="text-xs font-semibold uppercase tracking-wider text-ink/50">
         {label}
       </p>

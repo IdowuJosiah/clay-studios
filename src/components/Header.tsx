@@ -34,7 +34,7 @@ export default function Header() {
         </div>
 
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-md border border-ink/15 md:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >

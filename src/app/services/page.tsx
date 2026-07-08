@@ -19,7 +19,7 @@ export default function ServicesPage() {
           just a scope built around what you actually need.
         </p>
 
-        <div className="mt-14 flex flex-col divide-y divide-line rounded-3xl border border-line bg-cream-50">
+        <div className="mt-14 flex flex-col divide-y divide-line rounded-lg border border-line bg-cream-50">
           {services.map((service) => (
             <div
               key={service.title}

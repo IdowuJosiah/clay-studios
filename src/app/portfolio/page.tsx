@@ -25,7 +25,7 @@ export default function PortfolioPage() {
           {portfolioProjects.map((project, i) => (
             <div
               key={project.slug}
-              className="group overflow-hidden rounded-3xl border border-line"
+              className="group overflow-hidden rounded-lg border border-line"
             >
               <PlaceholderMedia
                 index={i}
@@ -44,7 +44,7 @@ export default function PortfolioPage() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-start gap-4 rounded-3xl bg-maroon p-10 text-cream-50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col items-start gap-4 rounded-lg bg-maroon p-10 text-cream-50 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="font-display text-2xl font-bold">
               Got a project in mind?

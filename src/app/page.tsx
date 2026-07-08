@@ -44,24 +44,24 @@ export default function Home() {
 
           {/* Status card, echoing a booking-flow product feel */}
           <div className="relative">
-            <div className="overflow-hidden rounded-3xl bg-maroon-900 p-8 text-cream-50 shadow-xl">
+            <div className="overflow-hidden rounded-lg bg-maroon-900 p-8 text-cream-50 shadow-xl">
               <p className="text-xs font-semibold uppercase tracking-wider text-cream-50/50">
                 Consultation request
               </p>
               <div className="mt-6 space-y-4">
-                <div className="rounded-2xl bg-white/5 p-4">
+                <div className="rounded-md bg-white/5 p-4">
                   <p className="text-xs text-cream-50/50">Project type</p>
                   <p className="mt-1 text-base font-semibold">
                     Brand &amp; Corporate Storytelling
                   </p>
                 </div>
-                <div className="rounded-2xl bg-white/5 p-4">
+                <div className="rounded-md bg-white/5 p-4">
                   <p className="text-xs text-cream-50/50">Status</p>
                   <p className="mt-1 text-base font-semibold">
                     Awaiting consultation call
                   </p>
                 </div>
-                <div className="rounded-2xl bg-gradient-to-br from-gold to-maroon-700 p-4">
+                <div className="rounded-md bg-gradient-to-br from-gold to-maroon-700 p-4">
                   <p className="text-xs text-cream-50/70">Next step</p>
                   <p className="mt-1 text-base font-semibold">
                     We reach out within 24 hours to schedule
@@ -69,7 +69,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-6 -left-6 hidden h-24 w-24 rounded-2xl bg-gold/80 sm:block" />
+            <div className="absolute -bottom-6 -left-6 hidden h-24 w-24 rounded-md bg-gold/80 sm:block" />
           </div>
         </div>
       </section>
@@ -91,7 +91,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <div
                 key={service.title}
@@ -130,7 +130,7 @@ export default function Home() {
               <Link
                 key={project.slug}
                 href={`/portfolio`}
-                className="group block overflow-hidden rounded-3xl border border-line"
+                className="group block overflow-hidden rounded-lg border border-line"
               >
                 <PlaceholderMedia
                   index={i}
@@ -163,7 +163,7 @@ export default function Home() {
             {processSteps.map((step) => (
               <div
                 key={step.step}
-                className="rounded-3xl border border-line bg-white p-6"
+                className="rounded-lg border border-line bg-white p-6"
               >
                 <span className="font-display text-3xl font-bold text-gold">
                   {step.step}
@@ -186,7 +186,7 @@ export default function Home() {
 
       {/* Gear rental teaser */}
       <section className="border-b border-line px-6 py-24 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-10 rounded-3xl bg-maroon p-10 text-cream-50 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:p-16">
+        <div className="mx-auto grid max-w-7xl gap-10 rounded-lg bg-maroon p-10 text-cream-50 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:p-16">
           <div>
             <Pill>
               <span className="text-cream-50/70">Gear rental</span>
@@ -220,7 +220,7 @@ export default function Home() {
             {testimonials.map((t) => (
               <figure
                 key={t.name + t.quote}
-                className="flex flex-col justify-between rounded-3xl border border-line bg-cream-50 p-8"
+                className="flex flex-col justify-between rounded-lg border border-line bg-cream-50 p-8"
               >
                 <blockquote className="font-display text-lg font-medium leading-snug">
                   “{t.quote}”

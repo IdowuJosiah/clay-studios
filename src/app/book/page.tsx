@@ -33,7 +33,7 @@ export default function BookPage() {
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Form / confirmation card */}
-          <div className="rounded-3xl border border-line bg-cream-50 p-8">
+          <div className="rounded-lg border border-line bg-cream-50 p-8">
             {!submitted ? (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <Field label="Full name" name="name" required />
@@ -49,7 +49,7 @@ export default function BookPage() {
                     name="projectType"
                     required
                     defaultValue=""
-                    className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
+                    className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
                   >
                     <option value="" disabled>
                       Select a service
@@ -69,13 +69,13 @@ export default function BookPage() {
                     name="details"
                     required
                     rows={4}
-                    className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
+                    className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
                     placeholder="What are you creating, when do you need it, and any details we should know?"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="mt-2 inline-flex items-center justify-center rounded-full bg-maroon px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-maroon-700"
+                  className="mt-2 inline-flex items-center justify-center rounded-md bg-maroon px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-maroon-700"
                 >
                   Request a consultation
                 </button>
@@ -85,17 +85,17 @@ export default function BookPage() {
                 <p className="text-xs font-semibold uppercase tracking-wider text-ink/50">
                   Request received
                 </p>
-                <div className="rounded-2xl bg-maroon-900 p-6 text-cream-50">
+                <div className="rounded-md bg-maroon-900 p-6 text-cream-50">
                   <p className="text-xs text-cream-50/50">Reference</p>
                   <p className="mt-1 font-display text-2xl font-bold">
                     {reference}
                   </p>
                   <div className="mt-6 space-y-3">
-                    <div className="rounded-xl bg-white/5 p-3 text-sm">
+                    <div className="rounded-md bg-white/5 p-3 text-sm">
                       <span className="text-cream-50/50">Status: </span>
                       Awaiting consultation call
                     </div>
-                    <div className="rounded-xl bg-gradient-to-br from-gold to-maroon-700 p-3 text-sm">
+                    <div className="rounded-md bg-gradient-to-br from-gold to-maroon-700 p-3 text-sm">
                       Next: we reach out within 24 hours to schedule
                     </div>
                   </div>
@@ -110,7 +110,7 @@ export default function BookPage() {
 
           {/* Process reminder + direct contact */}
           <div className="flex flex-col gap-6">
-            <div className="rounded-3xl border border-line bg-white p-8">
+            <div className="rounded-lg border border-line bg-white p-8">
               <h2 className="font-display text-lg font-bold">
                 What happens next
               </h2>
@@ -131,7 +131,7 @@ export default function BookPage() {
               </div>
             </div>
 
-            <div className="rounded-3xl bg-maroon-900 p-8 text-cream-50">
+            <div className="rounded-lg bg-maroon-900 p-8 text-cream-50">
               <h2 className="font-display text-lg font-bold">
                 Rather talk directly?
               </h2>
@@ -143,14 +143,14 @@ export default function BookPage() {
                   <a
                     key={phone}
                     href={`tel:${phone.replace(/\s/g, "")}`}
-                    className="rounded-xl bg-white/5 px-4 py-3 hover:bg-white/10"
+                    className="rounded-md bg-white/5 px-4 py-3 hover:bg-white/10"
                   >
                     Call — {phone}
                   </a>
                 ))}
                 <a
                   href={`mailto:${business.email}`}
-                  className="rounded-xl bg-white/5 px-4 py-3 hover:bg-white/10"
+                  className="rounded-md bg-white/5 px-4 py-3 hover:bg-white/10"
                 >
                   Email — {business.email}
                 </a>
@@ -158,7 +158,7 @@ export default function BookPage() {
                   href={business.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-xl bg-white/5 px-4 py-3 hover:bg-white/10"
+                  className="rounded-md bg-white/5 px-4 py-3 hover:bg-white/10"
                 >
                   Instagram — {business.instagramHandle}
                 </a>
@@ -189,7 +189,7 @@ function Field({
         name={name}
         type={type}
         required={required}
-        className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
+        className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
       />
     </div>
   );

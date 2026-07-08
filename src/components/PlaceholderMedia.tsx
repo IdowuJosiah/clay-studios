@@ -22,7 +22,7 @@ export default function PlaceholderMedia({
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.18),transparent_55%)]" />
       {label && (
-        <span className="relative z-10 m-4 rounded-full bg-black/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/80 backdrop-blur">
+        <span className="relative z-10 m-4 rounded-md bg-black/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/80 backdrop-blur">
           {label}
         </span>
       )}

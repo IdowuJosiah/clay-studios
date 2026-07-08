@@ -32,7 +32,7 @@ export default function RentGearPage() {
           {gearCatalog.map((group) => (
             <div
               key={group.category}
-              className="overflow-hidden rounded-3xl border border-line"
+              className="overflow-hidden rounded-lg border border-line"
             >
               <div className="bg-maroon px-6 py-4">
                 <h2 className="font-display text-lg font-bold text-cream-50">
@@ -53,7 +53,7 @@ export default function RentGearPage() {
         {/* Terms + request form */}
         <div className="mt-16 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex flex-col gap-6">
-            <div className="rounded-3xl bg-maroon-900 p-8 text-cream-50">
+            <div className="rounded-lg bg-maroon-900 p-8 text-cream-50">
               <h2 className="font-display text-lg font-bold">
                 Rental terms
               </h2>
@@ -65,7 +65,7 @@ export default function RentGearPage() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-line bg-white p-8">
+            <div className="rounded-lg border border-line bg-white p-8">
               <h2 className="font-display text-lg font-bold">
                 What you&apos;ll need to provide
               </h2>
@@ -80,7 +80,7 @@ export default function RentGearPage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-line bg-cream-50 p-8">
+          <div className="rounded-lg border border-line bg-cream-50 p-8">
             {!submitted ? (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <h2 className="font-display text-lg font-bold">
@@ -100,7 +100,7 @@ export default function RentGearPage() {
                       name="idType"
                       required
                       defaultValue=""
-                      className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
+                      className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
                     >
                       <option value="" disabled>
                         Select ID type
@@ -120,7 +120,7 @@ export default function RentGearPage() {
                     required
                     rows={3}
                     placeholder="e.g. Sony FX3, Sony 24-70mm GM, Aputure 300D"
-                    className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
+                    className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
                   />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ export default function RentGearPage() {
                     required
                     rows={2}
                     placeholder="Pick-up date and return date"
-                    className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
+                    className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
                   />
                 </div>
                 <label className="flex items-start gap-3 text-sm text-ink/60">
@@ -142,7 +142,7 @@ export default function RentGearPage() {
                 </label>
                 <button
                   type="submit"
-                  className="mt-2 inline-flex items-center justify-center rounded-full bg-maroon px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-maroon-700"
+                  className="mt-2 inline-flex items-center justify-center rounded-md bg-maroon px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-maroon-700"
                 >
                   Submit rental request
                 </button>
@@ -165,7 +165,7 @@ export default function RentGearPage() {
                     <a
                       key={phone}
                       href={`tel:${phone.replace(/\s/g, "")}`}
-                      className="rounded-xl bg-white px-4 py-3 hover:bg-cream"
+                      className="rounded-md bg-white px-4 py-3 hover:bg-cream"
                     >
                       Call now — {phone}
                     </a>
@@ -198,7 +198,7 @@ function Field({
         name={name}
         type={type}
         required={required}
-        className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
+        className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
       />
     </div>
   );
