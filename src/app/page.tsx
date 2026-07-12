@@ -5,6 +5,7 @@ import PlaceholderMedia from "@/components/PlaceholderMedia";
 import {
   business,
   services,
+  serviceThumbnail,
   portfolioProjects,
   testimonials,
   processSteps,
@@ -91,25 +92,43 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
-              <Link
-                key={service.title}
-                href={service.href}
-                className="group flex flex-col gap-4 bg-cream-50 p-8 transition-colors hover:bg-white"
-              >
-                <span className="font-display text-sm font-bold text-gold">
-                  {service.tag}
-                </span>
-                <h3 className="font-display text-xl font-bold">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-ink/60">{service.description}</p>
-                <span className="mt-auto text-sm font-semibold text-maroon opacity-0 transition-opacity group-hover:opacity-100">
-                  Explore →
-                </span>
-              </Link>
-            ))}
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => {
+              const thumb = serviceThumbnail(service);
+              return (
+                <Link
+                  key={service.title}
+                  href={service.href}
+                  className="group flex flex-col overflow-hidden rounded-lg bg-maroon-900 text-cream-50 ring-1 ring-maroon-900/10 transition-shadow hover:shadow-xl"
+                >
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    {thumb ? (
+                      <div
+                        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                        style={{ backgroundImage: `url('${thumb}')` }}
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-gold via-maroon-700 to-maroon-900 transition-transform duration-500 group-hover:scale-105" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-maroon-900 via-maroon-900/20 to-transparent" />
+                    <span className="absolute left-5 top-4 font-display text-sm font-bold text-gold">
+                      {service.tag}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-2 p-6">
+                    <h3 className="font-display text-lg font-bold">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-cream-50/70">
+                      {service.description}
+                    </p>
+                    <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gold transition-transform group-hover:translate-x-1">
+                      Explore →
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

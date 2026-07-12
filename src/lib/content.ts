@@ -186,6 +186,17 @@ export const services: Service[] = [
   },
 ];
 
+// Thumbnail for a service's first video (YouTube hqdefault or Drive thumbnail).
+// Returns null when the service has no video yet.
+export function serviceThumbnail(service: Service): string | null {
+  const v = service.videos[0];
+  if (!v) return null;
+  if (v.provider === "drive") {
+    return `https://drive.google.com/thumbnail?id=${v.id}&sz=w1000`;
+  }
+  return `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`;
+}
+
 export const portfolioProjects = [
   {
     slug: "placeholder-project-one",
