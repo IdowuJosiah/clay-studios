@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Pill from "@/components/Pill";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { business, services, processSteps } from "@/lib/content";
 
 export default function BookPage() {
@@ -79,6 +80,7 @@ export default function BookPage() {
                 >
                   Request a consultation
                 </button>
+                <WhatsAppButton />
               </form>
             ) : (
               <div className="flex flex-col gap-4">

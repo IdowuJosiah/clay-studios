@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import Pill from "@/components/Pill";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { business } from "@/lib/content";
 
 export const metadata = {
@@ -61,9 +62,12 @@ export default function ContactPage() {
               Book a consultation and let&apos;s scope your project.
             </p>
           </div>
-          <Button href="/book" variant="ghost">
-            Book a Consultation
-          </Button>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <WhatsAppButton label="Chat on WhatsApp" />
+            <Button href="/book" variant="ghost">
+              Book a Consultation
+            </Button>
+          </div>
         </div>
       </div>
     </div>

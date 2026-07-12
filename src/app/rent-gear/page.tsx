@@ -2,10 +2,13 @@
 
 import { useState, type FormEvent } from "react";
 import Pill from "@/components/Pill";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { business, gearCatalog, rentalTerms } from "@/lib/content";
 
 export default function RentGearPage() {
   const [submitted, setSubmitted] = useState(false);
+  // Today's date (YYYY-MM-DD) so the date pickers can't select past days.
+  const today = new Date().toISOString().split("T")[0];
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -123,16 +126,20 @@ export default function RentGearPage() {
                     className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
                   />
                 </div>
-                <div>
-                  <label className="text-sm font-medium text-ink/70">
-                    Rental dates
-                  </label>
-                  <textarea
-                    name="dates"
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <Field
+                    label="Pick-up date"
+                    name="pickupDate"
+                    type="date"
                     required
-                    rows={2}
-                    placeholder="Pick-up date and return date"
-                    className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
+                    min={today}
+                  />
+                  <Field
+                    label="Return date"
+                    name="returnDate"
+                    type="date"
+                    required
+                    min={today}
                   />
                 </div>
                 <label className="flex items-start gap-3 text-sm text-ink/60">
@@ -146,6 +153,7 @@ export default function RentGearPage() {
                 >
                   Submit rental request
                 </button>
+                <WhatsAppButton />
               </form>
             ) : (
               <div className="flex flex-col gap-4">
@@ -161,6 +169,7 @@ export default function RentGearPage() {
                   details — by phone or email shortly.
                 </p>
                 <div className="mt-2 flex flex-col gap-3 text-sm">
+                  <WhatsAppButton />
                   {business.phones.map((phone) => (
                     <a
                       key={phone}
@@ -185,11 +194,13 @@ function Field({
   name,
   type = "text",
   required = false,
+  min,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  min?: string;
 }) {
   return (
     <div>
@@ -198,6 +209,7 @@ function Field({
         name={name}
         type={type}
         required={required}
+        min={min}
         className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
       />
     </div>

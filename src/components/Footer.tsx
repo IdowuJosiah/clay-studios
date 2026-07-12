@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { business, nav } from "@/lib/content";
 
@@ -7,7 +8,13 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <p className="font-display text-2xl font-bold">{business.name}</p>
+            <Image
+              src="/logo-light.png"
+              alt={business.name}
+              width={403}
+              height={66}
+              className="h-9 w-auto"
+            />
             <p className="mt-3 max-w-xs text-sm text-cream-50/70">
               {business.tagline} — a full-service creative studio in{" "}
               {business.location}.

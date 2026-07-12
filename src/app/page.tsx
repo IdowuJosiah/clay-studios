@@ -27,7 +27,7 @@ export default function Home() {
               ))}
             </h1>
             <p className="mt-6 max-w-lg text-lg text-ink/70">
-              {business.name} is a full-service creative studio — brand
+              {business.name}{" "}is a full-service creative studio — brand
               storytelling, events, YouTube &amp; podcast production, music
               videos, documentaries, and professional gear rental, all under
               one roof in {business.location}.
@@ -93,9 +93,10 @@ export default function Home() {
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
-              <div
+              <Link
                 key={service.title}
-                className="flex flex-col gap-4 bg-cream-50 p-8 transition-colors hover:bg-white"
+                href={service.href}
+                className="group flex flex-col gap-4 bg-cream-50 p-8 transition-colors hover:bg-white"
               >
                 <span className="font-display text-sm font-bold text-gold">
                   {service.tag}
@@ -104,7 +105,10 @@ export default function Home() {
                   {service.title}
                 </h3>
                 <p className="text-sm text-ink/60">{service.description}</p>
-              </div>
+                <span className="mt-auto text-sm font-semibold text-maroon opacity-0 transition-opacity group-hover:opacity-100">
+                  Explore →
+                </span>
+              </Link>
             ))}
           </div>
         </div>

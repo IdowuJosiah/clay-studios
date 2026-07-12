@@ -1,4 +1,4 @@
-import Button from "@/components/Button";
+import Link from "next/link";
 import Pill from "@/components/Pill";
 import { services } from "@/lib/content";
 
@@ -21,9 +21,10 @@ export default function ServicesPage() {
 
         <div className="mt-14 flex flex-col divide-y divide-line rounded-lg border border-line bg-cream-50">
           {services.map((service) => (
-            <div
+            <Link
               key={service.title}
-              className="flex flex-col gap-4 p-8 sm:flex-row sm:items-start sm:gap-10"
+              href={service.href}
+              className="group flex flex-col gap-4 p-8 transition-colors hover:bg-white sm:flex-row sm:items-center sm:gap-10"
             >
               <span className="font-display text-2xl font-bold text-gold sm:w-16">
                 {service.tag}
@@ -36,10 +37,10 @@ export default function ServicesPage() {
                   {service.description}
                 </p>
               </div>
-              <Button href="/book" variant="outline" className="shrink-0">
-                Enquire
-              </Button>
-            </div>
+              <span className="shrink-0 text-sm font-semibold text-maroon transition-transform group-hover:translate-x-1">
+                View service →
+              </span>
+            </Link>
           ))}
         </div>
       </div>

@@ -8,6 +8,8 @@ export const business = {
   location: "Lagos, Nigeria",
   email: "claycreationshq@gmail.com",
   phones: ["0703 917 6501", "0811 255 6739"],
+  whatsapp: "2347039176501",
+  whatsappDisplay: "0703 917 6501",
   instagram: "https://www.instagram.com/claystudiocreations",
   instagramHandle: "@claystudiocreations",
 };
@@ -20,48 +22,167 @@ export const nav = [
   { label: "Contact", href: "/contact" },
 ];
 
-export const services = [
+// Each service links to its own page at /services/[slug]. Gear Rental is the
+// exception — it points at the dedicated /rent-gear flow. `videos` holds real
+// YouTube embeds; when empty, the page falls back to `videoCount` placeholder
+// slots so there's a visible spot to drop videos in later.
+// `provider` defaults to YouTube. Use "drive" for a Google Drive file that's
+// shared as "anyone with the link" — `id` is the Drive file ID.
+type ServiceVideo = {
+  id: string;
+  title: string;
+  provider?: "youtube" | "drive";
+};
+
+export type Service = {
+  slug: string;
+  href: string;
+  title: string;
+  description: string;
+  longDescription: string;
+  highlights: string[];
+  videoCount: number;
+  videos: ServiceVideo[];
+  tag: string;
+};
+
+export const services: Service[] = [
   {
+    slug: "events-live-production",
+    href: "/services/events-live-production",
     title: "Events & Live Production",
     description:
       "Full coverage and live production for launches, conferences, and cultural moments — planned and shot to move.",
+    longDescription:
+      "From product launches and conferences to concerts and cultural moments, we plan and shoot live events end to end. Multi-camera coverage, on-site direction, and fast turnaround so your moment lives on long after the room clears.",
+    highlights: [
+      "Multi-camera live coverage",
+      "On-site direction and run-of-show planning",
+      "Same-week highlight edits",
+      "Social-ready clips and full recordings",
+    ],
+    videoCount: 3,
+    videos: [
+      {
+        id: "_JaxWs5K7hE",
+        title: "Nino b2b Axara Live | Asake Mix DJ Set | Insert Nights: M$NEY",
+      },
+    ],
     tag: "01",
   },
   {
+    slug: "youtube-podcast-production",
+    href: "/services/youtube-podcast-production",
     title: "YouTube & Podcast Production",
     description:
       "Studio-grade recording, lighting, and edit for creators and brands building a consistent show.",
+    longDescription:
+      "Studio-grade recording and editing for creators and brands building a consistent show. We handle set design, lighting, multi-cam capture, and post so every episode looks and sounds like a network production.",
+    highlights: [
+      "Multi-cam studio recording",
+      "Broadcast-quality audio",
+      "Full edit, color, and captions",
+      "Thumbnails and channel-ready exports",
+    ],
+    videoCount: 3,
+    videos: [
+      {
+        id: "F0ZsiqqjjSY",
+        title:
+          "How Ronami Ogulu Helped Build Spaceship Collective + Manages Burna Boy’s Operations",
+      },
+    ],
     tag: "02",
   },
   {
+    slug: "brand-corporate-storytelling",
+    href: "/services/brand-corporate-storytelling",
     title: "Brand & Corporate Storytelling",
     description:
       "Films and campaigns that turn a brand's story into something people actually want to watch.",
+    longDescription:
+      "Films and campaigns that turn your brand's story into something people actually want to watch. We shape the message, produce the shoot, and deliver assets built for the platforms your audience lives on.",
+    highlights: [
+      "Concept and script development",
+      "Full-service production crew",
+      "Brand films, ads, and case studies",
+      "Cutdowns for every platform",
+    ],
+    videoCount: 3,
+    videos: [
+      {
+        provider: "drive",
+        id: "1RJoFQlhFKooptAQZTKNci4uIXGvje5wV",
+        title: "Brand storytelling film",
+      },
+    ],
     tag: "03",
   },
   {
+    slug: "music-videos",
+    href: "/services/music-videos",
     title: "Music Videos",
     description:
       "Concept, treatment, and production for artists who want a video that matches the record.",
+    longDescription:
+      "Concept, treatment, and production for artists who want a video that matches the record. From performance pieces to full narrative treatments, we build visuals that give the song a second life.",
+    highlights: [
+      "Creative treatment and moodboards",
+      "Location scouting and production design",
+      "Cinema-grade cameras and lighting",
+      "Editing, color grade, and VFX",
+    ],
+    videoCount: 3,
+    videos: [
+      {
+        id: "L7hUaGgu_uc",
+        title:
+          "Café Riddim, KEVIN LNDN & Söulaar – Bounce It O (Official Music Video)",
+      },
+    ],
     tag: "04",
   },
   {
+    slug: "special-passion-projects",
+    href: "/services/special-passion-projects",
     title: "Special & Passion Projects",
     description:
       "The weird, personal, hard-to-brief ideas — we help shape them into something real.",
+    longDescription:
+      "The weird, personal, hard-to-brief ideas we help shape into something real. Bring us the concept that doesn't fit a neat brief and we'll help you find its form.",
+    highlights: [
+      "Concept and creative development",
+      "Small, flexible crews",
+      "Experimental and narrative formats",
+      "Hands-on collaboration start to finish",
+    ],
+    videoCount: 3,
+    videos: [],
     tag: "05",
   },
   {
+    slug: "documentaries",
+    href: "/services/documentaries",
     title: "Documentaries",
     description:
       "Long-form, character-driven storytelling from first interview to final cut.",
+    longDescription:
+      "Long-form, character-driven storytelling from first interview to final cut. We sit with the story until it earns its runtime.",
+    highlights: [
+      "Story development and research",
+      "Interview and vérité shooting",
+      "Long-form edit and sound design",
+      "Festival- and broadcast-ready delivery",
+    ],
+    videoCount: 3,
+    videos: [
+      {
+        id: "KY6yHFYaBJY",
+        title:
+          "SHODAY \"HYBRID\" Documentary: The Path to Greatness | Career, Headline Show & Album",
+      },
+    ],
     tag: "06",
-  },
-  {
-    title: "Gear Rental",
-    description:
-      "Professional cameras, lenses, lighting, and accessories, rented out with a simple sign-off process.",
-    tag: "07",
   },
 ];
 

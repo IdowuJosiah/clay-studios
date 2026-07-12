@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { business, nav } from "@/lib/content";
@@ -11,8 +12,15 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-ink/10 bg-cream/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-        <Link href="/" className="font-display text-lg font-bold tracking-tight">
-          {business.shortName}
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt={business.name}
+            width={403}
+            height={66}
+            priority
+            className="h-8 w-auto"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
