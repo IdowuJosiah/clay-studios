@@ -1,7 +1,7 @@
+import Link from "next/link";
 import Button from "@/components/Button";
 import Pill from "@/components/Pill";
-import PlaceholderMedia from "@/components/PlaceholderMedia";
-import { portfolioProjects } from "@/lib/content";
+import { portfolioProjects, videoThumbnail } from "@/lib/content";
 
 export const metadata = {
   title: "Our Work — Clay Studio Creations",
@@ -17,30 +17,37 @@ export default function PortfolioPage() {
         </h1>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
           A selection of projects across brand storytelling, events, music
-          videos, documentaries, and more. Placeholder covers below —
-          swap in real stills and reels once they&apos;re ready.
+          videos, documentaries, and more.
         </p>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {portfolioProjects.map((project, i) => (
-            <div
-              key={project.slug}
-              className="group overflow-hidden rounded-lg border border-line"
+          {portfolioProjects.map((project) => (
+            <Link
+              key={project.video.id}
+              href={project.href}
+              className="group block overflow-hidden rounded-lg bg-maroon-900"
             >
-              <PlaceholderMedia
-                index={i}
-                label={project.category}
-                className="aspect-[4/5] w-full"
-              />
-              <div className="bg-cream-50 p-6">
+              <div className="relative aspect-video w-full overflow-hidden">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                  style={{
+                    backgroundImage: `url('${videoThumbnail(project.video)}')`,
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-maroon-900/70 to-transparent" />
+                <span className="absolute left-4 top-4 rounded-full bg-maroon-900/70 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cream-50 backdrop-blur">
+                  {project.category}
+                </span>
+              </div>
+              <div className="p-6 text-cream-50">
                 <h3 className="font-display text-lg font-bold">
                   {project.title}
                 </h3>
-                <p className="mt-1 text-sm text-ink/60">
-                  {project.description}
-                </p>
+                <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gold transition-transform group-hover:translate-x-1">
+                  Watch the work →
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

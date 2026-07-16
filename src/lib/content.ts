@@ -67,6 +67,13 @@ export const services: Service[] = [
         id: "_JaxWs5K7hE",
         title: "Nino b2b Axara Live | Asake Mix DJ Set | Insert Nights: M$NEY",
       },
+      { id: "4ghwer462QI", title: "Opium — Event Recap" },
+      { id: "pVnUPWb7VIc", title: "LASOHEC — Event Recap" },
+      { id: "hbiwpymFYgs", title: "Lilkesh — 10 Years on Stage" },
+      {
+        id: "Xg91_5ao5fQ",
+        title: "France–Nigeria Music Trade Mission 2026",
+      },
     ],
     tag: "01",
   },
@@ -115,6 +122,8 @@ export const services: Service[] = [
         id: "1RJoFQlhFKooptAQZTKNci4uIXGvje5wV",
         title: "Brand storytelling film",
       },
+      { id: "4U9FMD4rvjw", title: "CIMA — Brand Story" },
+      { id: "-U93Qadio74", title: "MBA — Advert" },
     ],
     tag: "03",
   },
@@ -157,7 +166,7 @@ export const services: Service[] = [
       "Hands-on collaboration start to finish",
     ],
     videoCount: 3,
-    videos: [],
+    videos: [{ id: "9mTloB14QoQ", title: "Eko Noir" }],
     tag: "05",
   },
   {
@@ -181,58 +190,153 @@ export const services: Service[] = [
         title:
           "SHODAY \"HYBRID\" Documentary: The Path to Greatness | Career, Headline Show & Album",
       },
+      {
+        id: "94Sd3yHyhaM",
+        title: "Detty Dec Documentary",
+      },
     ],
     tag: "06",
   },
 ];
 
-// Thumbnail for a service's first video (YouTube hqdefault or Drive thumbnail).
-// Returns null when the service has no video yet.
-export function serviceThumbnail(service: Service): string | null {
-  const v = service.videos[0];
-  if (!v) return null;
-  if (v.provider === "drive") {
-    return `https://drive.google.com/thumbnail?id=${v.id}&sz=w1000`;
+// Thumbnail URL for a single video (YouTube maxres/hqdefault or Drive).
+export function videoThumbnail(video: ServiceVideo): string {
+  if (video.provider === "drive") {
+    return `https://drive.google.com/thumbnail?id=${video.id}&sz=w1000`;
   }
-  return `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`;
+  return `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
 }
 
-export const portfolioProjects = [
+// Thumbnail for a service's first video. Null when it has no video yet.
+export function serviceThumbnail(service: Service): string | null {
+  const v = service.videos[0];
+  return v ? videoThumbnail(v) : null;
+}
+
+// Flagship pieces surfaced in the "Featured work" section on the landing page.
+// Each links through to the relevant service page.
+export const featuredWork: {
+  title: string;
+  category: string;
+  href: string;
+  video: ServiceVideo;
+}[] = [
   {
-    slug: "placeholder-project-one",
-    title: "Project Title One",
-    category: "Brand Storytelling",
-    description: "A short one-line description of the project goes here.",
-  },
-  {
-    slug: "placeholder-project-two",
-    title: "Project Title Two",
-    category: "Events & Live Production",
-    description: "A short one-line description of the project goes here.",
-  },
-  {
-    slug: "placeholder-project-three",
-    title: "Project Title Three",
-    category: "Music Video",
-    description: "A short one-line description of the project goes here.",
-  },
-  {
-    slug: "placeholder-project-four",
-    title: "Project Title Four",
+    title: "Detty Dec Documentary",
     category: "Documentary",
-    description: "A short one-line description of the project goes here.",
+    href: "/services/documentaries",
+    video: { id: "94Sd3yHyhaM", title: "Detty Dec Documentary" },
   },
   {
-    slug: "placeholder-project-five",
-    title: "Project Title Five",
-    category: "YouTube & Podcast",
-    description: "A short one-line description of the project goes here.",
+    title: "Café Riddim — Bounce It O",
+    category: "Music Video",
+    href: "/services/music-videos",
+    video: { id: "L7hUaGgu_uc", title: "Café Riddim — Bounce It O" },
   },
   {
-    slug: "placeholder-project-six",
-    title: "Project Title Six",
+    title: "CIMA — Brand Story",
+    category: "Brand Storytelling",
+    href: "/services/brand-corporate-storytelling",
+    video: { id: "4U9FMD4rvjw", title: "CIMA — Brand Story" },
+  },
+];
+
+export const portfolioProjects: {
+  title: string;
+  category: string;
+  href: string;
+  video: ServiceVideo;
+}[] = [
+  {
+    title: "Detty Dec Documentary",
+    category: "Documentary",
+    href: "/services/documentaries",
+    video: { id: "94Sd3yHyhaM", title: "Detty Dec Documentary" },
+  },
+  {
+    title: 'SHODAY "HYBRID" Documentary',
+    category: "Documentary",
+    href: "/services/documentaries",
+    video: {
+      id: "KY6yHFYaBJY",
+      title: "SHODAY — The Path to Greatness",
+    },
+  },
+  {
+    title: "Café Riddim — Bounce It O",
+    category: "Music Video",
+    href: "/services/music-videos",
+    video: { id: "L7hUaGgu_uc", title: "Café Riddim — Bounce It O" },
+  },
+  {
+    title: "CIMA — Brand Story",
+    category: "Brand Storytelling",
+    href: "/services/brand-corporate-storytelling",
+    video: { id: "4U9FMD4rvjw", title: "CIMA — Brand Story" },
+  },
+  {
+    title: "MBA — Advert",
+    category: "Brand Storytelling",
+    href: "/services/brand-corporate-storytelling",
+    video: { id: "-U93Qadio74", title: "MBA — Advert" },
+  },
+  {
+    title: "Brand Storytelling Film",
+    category: "Brand Storytelling",
+    href: "/services/brand-corporate-storytelling",
+    video: {
+      provider: "drive",
+      id: "1RJoFQlhFKooptAQZTKNci4uIXGvje5wV",
+      title: "Brand Storytelling Film",
+    },
+  },
+  {
+    title: "Nino b2b Axara — Live DJ Set",
+    category: "Events & Live Production",
+    href: "/services/events-live-production",
+    video: { id: "_JaxWs5K7hE", title: "Nino b2b Axara Live" },
+  },
+  {
+    title: "Opium — Event Recap",
+    category: "Events & Live Production",
+    href: "/services/events-live-production",
+    video: { id: "4ghwer462QI", title: "Opium — Event Recap" },
+  },
+  {
+    title: "LASOHEC — Event Recap",
+    category: "Events & Live Production",
+    href: "/services/events-live-production",
+    video: { id: "pVnUPWb7VIc", title: "LASOHEC — Event Recap" },
+  },
+  {
+    title: "Lilkesh — 10 Years on Stage",
+    category: "Events & Live Production",
+    href: "/services/events-live-production",
+    video: { id: "hbiwpymFYgs", title: "Lilkesh — 10 Years on Stage" },
+  },
+  {
+    title: "France–Nigeria Music Trade Mission",
+    category: "Events & Live Production",
+    href: "/services/events-live-production",
+    video: {
+      id: "Xg91_5ao5fQ",
+      title: "France–Nigeria Music Trade Mission 2026",
+    },
+  },
+  {
+    title: "Eko Noir",
     category: "Special Project",
-    description: "A short one-line description of the project goes here.",
+    href: "/services/special-passion-projects",
+    video: { id: "9mTloB14QoQ", title: "Eko Noir" },
+  },
+  {
+    title: "Ronami Ogulu on Spaceship Collective",
+    category: "YouTube & Podcast",
+    href: "/services/youtube-podcast-production",
+    video: {
+      id: "F0ZsiqqjjSY",
+      title: "Ronami Ogulu — Spaceship Collective",
+    },
   },
 ];
 
