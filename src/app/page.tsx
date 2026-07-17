@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Button from "@/components/Button";
 import Pill from "@/components/Pill";
+import VideoEmbed from "@/components/VideoEmbed";
 import {
   business,
   services,
   serviceThumbnail,
   featuredWork,
-  videoThumbnail,
   testimonials,
   processSteps,
 } from "@/lib/content";
@@ -148,35 +148,50 @@ export default function Home() {
             </Button>
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredWork.map((work) => (
-              <Link
-                key={work.video.id}
-                href={work.href}
-                className="group block overflow-hidden rounded-lg bg-maroon-900"
-              >
-                <div className="relative aspect-video w-full overflow-hidden">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                    style={{
-                      backgroundImage: `url('${videoThumbnail(work.video)}')`,
-                    }}
+          <div className="mt-12 space-y-6">
+            {/* First video — full width, featured */}
+            <div>
+              <VideoEmbed
+                id={featuredWork[0].video.id}
+                title={featuredWork[0].video.title}
+                provider={featuredWork[0].video.provider}
+              />
+              <div className="mt-3 flex items-center gap-3">
+                <span className="rounded-full bg-maroon px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cream-50">
+                  {featuredWork[0].category}
+                </span>
+                <Link
+                  href={featuredWork[0].href}
+                  className="font-display text-base font-bold hover:text-maroon"
+                >
+                  {featuredWork[0].title}
+                </Link>
+              </div>
+            </div>
+
+            {/* Remaining two — side by side */}
+            <div className="grid gap-6 sm:grid-cols-2">
+              {featuredWork.slice(1).map((work) => (
+                <div key={work.video.id}>
+                  <VideoEmbed
+                    id={work.video.id}
+                    title={work.video.title}
+                    provider={work.video.provider}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-maroon-900/70 to-transparent" />
-                  <span className="absolute left-4 top-4 rounded-full bg-maroon-900/70 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cream-50 backdrop-blur">
-                    {work.category}
-                  </span>
+                  <div className="mt-3 flex items-center gap-3">
+                    <span className="rounded-full bg-maroon px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cream-50">
+                      {work.category}
+                    </span>
+                    <Link
+                      href={work.href}
+                      className="font-display text-base font-bold hover:text-maroon"
+                    >
+                      {work.title}
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-6 text-cream-50">
-                  <h3 className="font-display text-lg font-bold">
-                    {work.title}
-                  </h3>
-                  <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-gold transition-transform group-hover:translate-x-1">
-                    Watch the work →
-                  </span>
-                </div>
-              </Link>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
