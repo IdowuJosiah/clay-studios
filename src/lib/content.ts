@@ -223,6 +223,12 @@ export const featuredWork: {
     video: { id: "94Sd3yHyhaM", title: "Detty Dec Documentary" },
   },
   {
+    title: 'SHODAY "HYBRID" Documentary',
+    category: "Documentary",
+    href: "/services/documentaries",
+    video: { id: "KY6yHFYaBJY", title: "SHODAY — The Path to Greatness" },
+  },
+  {
     title: "Café Riddim — Bounce It O",
     category: "Music Video",
     href: "/services/music-videos",

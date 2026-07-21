@@ -149,29 +149,31 @@ export default function Home() {
           </div>
 
           <div className="mt-12 space-y-6">
-            {/* First video — full width, featured */}
-            <div>
-              <VideoEmbed
-                id={featuredWork[0].video.id}
-                title={featuredWork[0].video.title}
-                provider={featuredWork[0].video.provider}
-              />
-              <div className="mt-3 flex items-center gap-3">
-                <span className="rounded-full bg-maroon px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cream-50">
-                  {featuredWork[0].category}
-                </span>
-                <Link
-                  href={featuredWork[0].href}
-                  className="font-display text-base font-bold hover:text-maroon"
-                >
-                  {featuredWork[0].title}
-                </Link>
+            {/* First two — full width, featured */}
+            {featuredWork.slice(0, 2).map((work) => (
+              <div key={work.video.id}>
+                <VideoEmbed
+                  id={work.video.id}
+                  title={work.video.title}
+                  provider={work.video.provider}
+                />
+                <div className="mt-3 flex items-center gap-3">
+                  <span className="rounded-full bg-maroon px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cream-50">
+                    {work.category}
+                  </span>
+                  <Link
+                    href={work.href}
+                    className="font-display text-base font-bold hover:text-maroon"
+                  >
+                    {work.title}
+                  </Link>
+                </div>
               </div>
-            </div>
+            ))}
 
-            {/* Remaining two — side by side */}
+            {/* Remaining — side by side */}
             <div className="grid gap-6 sm:grid-cols-2">
-              {featuredWork.slice(1).map((work) => (
+              {featuredWork.slice(2).map((work) => (
                 <div key={work.video.id}>
                   <VideoEmbed
                     id={work.video.id}
