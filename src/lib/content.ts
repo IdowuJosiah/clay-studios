@@ -217,12 +217,6 @@ export const featuredWork: {
   video: ServiceVideo;
 }[] = [
   {
-    title: "Detty Dec Documentary",
-    category: "Documentary",
-    href: "/services/documentaries",
-    video: { id: "94Sd3yHyhaM", title: "Detty Dec Documentary" },
-  },
-  {
     title: 'SHODAY "HYBRID" Documentary',
     category: "Documentary",
     href: "/services/documentaries",
