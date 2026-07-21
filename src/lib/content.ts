@@ -117,11 +117,6 @@ export const services: Service[] = [
     ],
     videoCount: 3,
     videos: [
-      {
-        provider: "drive",
-        id: "1RJoFQlhFKooptAQZTKNci4uIXGvje5wV",
-        title: "Brand storytelling film",
-      },
       { id: "4U9FMD4rvjw", title: "CIMA — Brand Story" },
       { id: "-U93Qadio74", title: "MBA — Advert" },
     ],
@@ -279,16 +274,6 @@ export const portfolioProjects: {
     category: "Brand Storytelling",
     href: "/services/brand-corporate-storytelling",
     video: { id: "-U93Qadio74", title: "MBA — Advert" },
-  },
-  {
-    title: "Brand Storytelling Film",
-    category: "Brand Storytelling",
-    href: "/services/brand-corporate-storytelling",
-    video: {
-      provider: "drive",
-      id: "1RJoFQlhFKooptAQZTKNci4uIXGvje5wV",
-      title: "Brand Storytelling Film",
-    },
   },
   {
     title: "Nino b2b Axara — Live DJ Set",
