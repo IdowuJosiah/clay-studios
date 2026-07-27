@@ -63,12 +63,12 @@ export const services: Service[] = [
     ],
     videoCount: 3,
     videos: [
+      { id: "9mTloB14QoQ", title: "Eko Noir" },
       {
         id: "_JaxWs5K7hE",
         title: "Nino b2b Axara Live | Asake Mix DJ Set | Insert Nights: M$NEY",
       },
       { id: "4ghwer462QI", title: "Opium — Event Recap" },
-      { id: "pVnUPWb7VIc", title: "LASOHEC — Event Recap" },
       { id: "hbiwpymFYgs", title: "Lilkesh — 10 Years on Stage" },
       {
         id: "Xg91_5ao5fQ",
@@ -161,7 +161,7 @@ export const services: Service[] = [
       "Hands-on collaboration start to finish",
     ],
     videoCount: 3,
-    videos: [{ id: "9mTloB14QoQ", title: "Eko Noir" }],
+    videos: [{ id: "pVnUPWb7VIc", title: "LASOHEC" }],
     tag: "05",
   },
   {

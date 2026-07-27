@@ -7,7 +7,6 @@ import {
   services,
   serviceThumbnail,
   featuredWork,
-  testimonials,
   processSteps,
 } from "@/lib/content";
 
@@ -251,34 +250,6 @@ export default function Home() {
             <Button href="/rent-gear" variant="ghost">
               Browse the gear catalog
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="px-6 py-24 lg:px-10">
-        <div className="mx-auto max-w-7xl">
-          <Pill>What clients say</Pill>
-          <h2 className="font-display mt-4 max-w-xl text-3xl font-bold tracking-tight sm:text-4xl">
-            Creative. Fast. Unforgettable.
-          </h2>
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure
-                key={t.name + t.quote}
-                className="flex flex-col justify-between rounded-lg border border-line bg-cream-50 p-8"
-              >
-                <blockquote className="font-display text-lg font-medium leading-snug">
-                  “{t.quote}”
-                </blockquote>
-                <figcaption className="mt-6 text-sm text-ink/60">
-                  <span className="font-semibold text-ink">{t.name}</span>
-                  <br />
-                  {t.role}
-                </figcaption>
-              </figure>
-            ))}
           </div>
         </div>
       </section>
