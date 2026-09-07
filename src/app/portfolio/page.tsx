@@ -13,11 +13,11 @@ export default function PortfolioPage() {
       <div className="mx-auto max-w-7xl">
         <Pill>Our work</Pill>
         <h1 className="font-display mt-4 max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">
-          The receipts? They&apos;re right here.
+          Our work speaks for itself.
         </h1>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
-          A selection of projects across brand storytelling, events, music
-          videos, documentaries, and more.
+          A collection of projects across brand storytelling, events, music
+          videos, documentaries and everything in between.
         </p>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

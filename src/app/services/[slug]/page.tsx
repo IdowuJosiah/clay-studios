@@ -123,8 +123,9 @@ export default async function ServiceDetailPage({
                 Interested in this service?
               </h2>
               <p className="mt-2 text-sm text-cream-50/70">
-                Every project starts with a consultation — no fixed packages,
-                just a scope built around what you need.
+                Every project starts with a consultation. Tell us what
+                you&apos;re planning, and together we&apos;ll figure out the
+                right production.
               </p>
             </div>
             <Button href="/book" variant="ghost" className="w-full">

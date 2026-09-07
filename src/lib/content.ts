@@ -1,5 +1,5 @@
-// Central place for placeholder content. Swap these values out once real
-// copy, photos, and pricing are ready — nothing else in the app needs to change.
+// Central place for site copy and data. Edit these values to update the site —
+// nothing else in the app needs to change.
 
 export const business = {
   name: "Clay Studio Creations",
@@ -52,14 +52,14 @@ export const services: Service[] = [
     href: "/services/events-live-production",
     title: "Events & Live Production",
     description:
-      "Full coverage and live production for launches, conferences, and cultural moments — planned and shot to move.",
+      "Your events happen once — from planning and on-site production to multi-camera coverage and final delivery.",
     longDescription:
-      "From product launches and conferences to concerts and cultural moments, we plan and shoot live events end to end. Multi-camera coverage, on-site direction, and fast turnaround so your moment lives on long after the room clears.",
+      "Your events happen once. From planning to on-site production, multi-camera coverage to final delivery, we ensure the moment lives beyond the day — even after the room clears.",
     highlights: [
-      "Multi-camera live coverage",
-      "On-site direction and run-of-show planning",
-      "Same-week highlight edits",
-      "Social-ready clips and full recordings",
+      "Multi-camera event coverage",
+      "On-site direction and production support",
+      "Event highlights delivered within the week",
+      "Social-ready clips and full event recording",
     ],
     videoCount: 3,
     videos: [
@@ -82,14 +82,14 @@ export const services: Service[] = [
     href: "/services/youtube-podcast-production",
     title: "YouTube & Podcast Production",
     description:
-      "Studio-grade recording, lighting, and edit for creators and brands building a consistent show.",
+      "From podcasts and interviews to YouTube shows and branded content — production handled from setup to final edit.",
     longDescription:
-      "Studio-grade recording and editing for creators and brands building a consistent show. We handle set design, lighting, multi-cam capture, and post so every episode looks and sounds like a network production.",
+      "From podcasts and interviews to YouTube shows and branded content, we handle the production from setup to the final edit. With the right cameras, lighting, sound and set design, we help create professional content that draws your audience back.",
     highlights: [
-      "Multi-cam studio recording",
-      "Broadcast-quality audio",
-      "Full edit, color, and captions",
-      "Thumbnails and channel-ready exports",
+      "Multi-camera studio recording",
+      "Professional audio recording",
+      "Full editing, colour grading and captions",
+      "Thumbnails and platform-ready exports",
     ],
     videoCount: 3,
     videos: [
@@ -106,14 +106,14 @@ export const services: Service[] = [
     href: "/services/brand-corporate-storytelling",
     title: "Brand & Corporate Storytelling",
     description:
-      "Films and campaigns that turn a brand's story into something people actually want to watch.",
+      "Every brand has a story — we turn ideas, values and stories into visuals people connect with.",
     longDescription:
-      "Films and campaigns that turn your brand's story into something people actually want to watch. We shape the message, produce the shoot, and deliver assets built for the platforms your audience lives on.",
+      "Every brand has a story. We turn brands' ideas, values and stories into visuals people can connect with. From the big idea to the final frame, we create content that represents your brand and speaks to your audience.",
     highlights: [
-      "Concept and script development",
-      "Full-service production crew",
-      "Brand films, ads, and case studies",
-      "Cutdowns for every platform",
+      "Concept development and scripting",
+      "Full production crew and support",
+      "Brand films, adverts and case studies",
+      "Platform-ready cutdowns and social clips",
     ],
     videoCount: 3,
     videos: [
@@ -127,14 +127,14 @@ export const services: Service[] = [
     href: "/services/music-videos",
     title: "Music Videos",
     description:
-      "Concept, treatment, and production for artists who want a video that matches the record.",
+      "The song sets the mood — visuals with a concept, a story and a style that give your record a life of its own.",
     longDescription:
-      "Concept, treatment, and production for artists who want a video that matches the record. From performance pieces to full narrative treatments, we build visuals that give the song a second life.",
+      "The song sets the mood. We create visuals with a concept, a story, and a style that gives your record a life of its own.",
     highlights: [
-      "Creative treatment and moodboards",
+      "Creative treatment and visual direction",
       "Location scouting and production design",
-      "Cinema-grade cameras and lighting",
-      "Editing, color grade, and VFX",
+      "Cinema cameras, lighting and production equipment",
+      "Editing, colour grading and visual effects",
     ],
     videoCount: 3,
     videos: [
@@ -151,14 +151,14 @@ export const services: Service[] = [
     href: "/services/special-passion-projects",
     title: "Special & Passion Projects",
     description:
-      "The weird, personal, hard-to-brief ideas — we help shape them into something real.",
+      "Not every idea comes with a brief — some just need someone willing to run with them.",
     longDescription:
-      "The weird, personal, hard-to-brief ideas we help shape into something real. Bring us the concept that doesn't fit a neat brief and we'll help you find its form.",
+      "Not every idea comes with a brief. Some need someone who's willing to run with them. We work with you to develop the concept, shape the creative direction and produce something that feels uniquely yours.",
     highlights: [
-      "Concept and creative development",
-      "Small, flexible crews",
-      "Experimental and narrative formats",
-      "Hands-on collaboration start to finish",
+      "Concept development and creative direction",
+      "Flexible crews built around the project",
+      "Experimental, visual narrative formats",
+      "Hands-on collaboration from start to finish",
     ],
     videoCount: 3,
     videos: [{ id: "pVnUPWb7VIc", title: "LASOHEC" }],
@@ -168,15 +168,14 @@ export const services: Service[] = [
     slug: "documentaries",
     href: "/services/documentaries",
     title: "Documentaries",
-    description:
-      "Long-form, character-driven storytelling from first interview to final cut.",
+    description: "Real people. Real stories — told with depth, care and intention.",
     longDescription:
-      "Long-form, character-driven storytelling from first interview to final cut. We sit with the story until it earns its runtime.",
+      "Real people. Real stories. We tell real stories with depth, care and intention, following the story from the first interview to the final frame — giving every moment the space it deserves.",
     highlights: [
       "Story development and research",
-      "Interview and vérité shooting",
-      "Long-form edit and sound design",
-      "Festival- and broadcast-ready delivery",
+      "Interview and documentary-style filming",
+      "Long-form editing and sound design",
+      "Broadcast and festival-ready delivery",
     ],
     videoCount: 3,
     videos: [
@@ -374,9 +373,9 @@ export const gearCatalog = [
 
 export const rentalTerms = {
   returnPolicy:
-    "This is not a 24-hour rental. Every item is due back the following day before 8am.",
+    "Your rental covers the shoot day. All equipment must be returned the following day before 8am.",
   lateFee:
-    "Late returns are charged a fee based on the value of the equipment rented.",
+    "Late returns will attract a fee based on the value of the equipment rented.",
   requirements: [
     "Full name, phone number, and email",
     "Current residential address",
@@ -390,22 +389,25 @@ export const rentalTerms = {
 export const processSteps = [
   {
     step: "01",
-    title: "Book a consultation",
-    description: "Tell us what you're working on and we'll set up a call.",
+    title: "Tell us your idea",
+    description:
+      "What do you have in mind? Let's have a quick conversation about your idea and what you'd need.",
   },
   {
     step: "02",
-    title: "We scope the project",
-    description: "Together we lock the brief, timeline, and budget.",
+    title: "Plan it out",
+    description:
+      "We'll figure out the details — from creative direction and timeline to budget and everything in between.",
   },
   {
     step: "03",
     title: "Production",
-    description: "Our crew shoots, records, or produces the work.",
+    description:
+      "Our team gets to work, turning the plan into the visual content or production you envisioned.",
   },
   {
     step: "04",
-    title: "Delivery",
-    description: "You review, request revisions, and get final files.",
+    title: "Make it yours",
+    description: "We make the final touches while you get the final files.",
   },
 ];

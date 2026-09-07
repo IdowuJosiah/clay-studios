@@ -27,9 +27,9 @@ export default function BookPage() {
           Book a consultation
         </h1>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
-          We don&apos;t lock you into a package upfront. Tell us what
-          you&apos;re working on, and we&apos;ll set up a call to scope the
-          project, timeline, and budget together.
+          No two projects are the same. Tell us what you&apos;re working on —
+          let&apos;s talk through the vision, plan the process, and figure out
+          what it&apos;ll take to bring it to life.
         </p>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">

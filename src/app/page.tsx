@@ -27,10 +27,10 @@ export default function Home() {
               ))}
             </h1>
             <p className="mt-6 max-w-lg text-lg text-ink/70">
-              {business.name}{" "}is a full-service creative studio — brand
-              storytelling, events, YouTube &amp; podcast production, music
-              videos, documentaries, and professional gear rental, all under
-              one roof in {business.location}.
+              {business.name}{" "}is a full-service creative studio for brands,
+              events, YouTube &amp; podcast production, music videos,
+              documentaries and professional gear rental — all under one roof in{" "}
+              {business.location}.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button href="/book" variant="primary">
@@ -137,10 +137,15 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <Pill>Featured work</Pill>
+              <Pill>Want proof?</Pill>
               <h2 className="font-display mt-4 max-w-xl text-3xl font-bold tracking-tight sm:text-4xl">
-                Want proof? Our visuals speak for themselves.
+                See what we&apos;ve been creating
               </h2>
+              <p className="mt-3 max-w-md text-ink/60">
+                Our work speaks for itself — a collection of projects across
+                brand storytelling, events, music videos, documentaries and
+                everything in between.
+              </p>
             </div>
             <Button href="/portfolio" variant="outline">
               View all work
@@ -238,12 +243,12 @@ export default function Home() {
               <span className="text-cream-50/70">Gear rental</span>
             </Pill>
             <h2 className="font-display mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Pro cameras, lenses, and lighting — without selling a kidney.
+              High quality gear without breaking a leg? Come closer.
             </h2>
             <p className="mt-4 max-w-lg text-cream-50/70">
-              Rent the same Sony cinema bodies, GM lenses, and lighting kits
-              we use on set. Simple sign-off, clear return terms, no
-              surprises.
+              Get access to our professional cameras, lenses, lighting and
+              accessories without the commitment of buying. Rent what you need
+              with a simple sign-off.
             </p>
           </div>
           <div className="flex lg:justify-end">

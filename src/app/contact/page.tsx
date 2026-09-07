@@ -11,14 +11,12 @@ export default function ContactPage() {
   return (
     <div className="px-6 py-20 lg:px-10">
       <div className="mx-auto max-w-5xl">
-        <Pill>Questions?</Pill>
+        <Pill>Let&apos;s talk</Pill>
         <h1 className="font-display mt-4 max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">
-          Talk to {business.shortName} before you book.
+          Got an idea? Need a hand?
         </h1>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
-          Whether it&apos;s a project, a rental, or you just have questions —
-          reach us directly, or book a consultation and we&apos;ll come to
-          you.
+          We&apos;re only a call, mail or DM away.
         </p>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-3">

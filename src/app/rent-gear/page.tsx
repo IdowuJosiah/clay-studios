@@ -22,12 +22,12 @@ export default function RentGearPage() {
       <div className="mx-auto max-w-7xl">
         <Pill>Gear rental</Pill>
         <h1 className="font-display mt-4 max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">
-          Need high-quality gear without selling a kidney? We&apos;ve got you.
+          High quality gear without breaking a leg? Come closer.
         </h1>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
-          Professional cameras, lenses, lighting, and accessories — the same
-          kit we use on our own productions, available to rent with a
-          simple sign-off.
+          Get access to our professional cameras, lenses, lighting and
+          accessories without the commitment of buying. Rent what you need with
+          a simple sign-off.
         </p>
 
         {/* Catalog */}
