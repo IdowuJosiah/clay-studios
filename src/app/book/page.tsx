@@ -17,16 +17,23 @@ export default function BookPage() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
     const ref = `CSC-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+    const name = String(data.name ?? "").trim();
     setSubmitting(true);
     setError("");
-    const subject = "New consultation request — Clay Studio Creations";
+    const subject = `New consultation request${
+      name ? ` from ${name}` : ""
+    } — Clay Studio Creations`;
     try {
       await submitToFormspree({
-        ...data,
-        reference: ref,
+        Name: data.name,
+        Phone: data.phone,
+        Email: data.email,
+        "Project type": data.projectType,
+        "Project details": data.details,
+        Reference: ref,
         _subject: subject,
         _replyto: String(data.email ?? ""),
-        form: "Consultation request",
+        _gotcha: data._gotcha,
       });
       setReference(ref);
       setSubmitted(true);
@@ -59,9 +66,24 @@ export default function BookPage() {
           <div className="rounded-lg border border-line bg-cream-50 p-8">
             {!submitted ? (
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                {/* Honeypot: hidden from people, catches bots. */}
+                <input
+                  type="text"
+                  name="_gotcha"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                />
                 <Field label="Full name" name="name" required />
                 <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label="Phone number" name="phone" type="tel" required />
+                  <Field
+                    label="Phone number"
+                    name="phone"
+                    type="tel"
+                    required
+                    numericOnly
+                  />
                   <Field label="Email address" name="email" type="email" required />
                 </div>
                 <div>
@@ -206,11 +228,13 @@ function Field({
   name,
   type = "text",
   required = false,
+  numericOnly = false,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  numericOnly?: boolean;
 }) {
   return (
     <div>
@@ -219,6 +243,21 @@ function Field({
         name={name}
         type={type}
         required={required}
+        inputMode={numericOnly ? "numeric" : undefined}
+        pattern={numericOnly ? "[0-9]{7,15}" : undefined}
+        title={
+          numericOnly ? "Enter digits only (7–15 numbers)." : undefined
+        }
+        onInput={
+          numericOnly
+            ? (e) => {
+                e.currentTarget.value = e.currentTarget.value.replace(
+                  /[^0-9]/g,
+                  "",
+                );
+              }
+            : undefined
+        }
         className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
       />
     </div>
