@@ -4,19 +4,41 @@ import { useState, type FormEvent } from "react";
 import Pill from "@/components/Pill";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { business, services, processSteps } from "@/lib/content";
+import { submitToFormspree, buildMailto } from "@/lib/formspree";
 
 export default function BookPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
   const [reference, setReference] = useState("");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // NOTE: this is a placeholder submit handler. Wire this up to a real
-    // endpoint (email, CRM, WhatsApp API, etc.) once that's decided —
-    // for now it just simulates a confirmation so the flow can be reviewed.
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form).entries());
     const ref = `CSC-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
-    setReference(ref);
-    setSubmitted(true);
+    setSubmitting(true);
+    setError("");
+    const subject = "New consultation request — Clay Studio Creations";
+    try {
+      await submitToFormspree({
+        ...data,
+        reference: ref,
+        _subject: subject,
+        _replyto: String(data.email ?? ""),
+        form: "Consultation request",
+      });
+      setReference(ref);
+      setSubmitted(true);
+    } catch {
+      // Fall back to a pre-filled email so the request still reaches us.
+      window.location.href = buildMailto(business.email, subject, data);
+      setError(
+        "We're opening your email app so you can send this request to us directly.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -76,10 +98,16 @@ export default function BookPage() {
                 </div>
                 <button
                   type="submit"
-                  className="mt-2 inline-flex items-center justify-center rounded-md bg-maroon px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-maroon-700"
+                  disabled={submitting}
+                  className="mt-2 inline-flex items-center justify-center rounded-md bg-maroon px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-maroon-700 disabled:opacity-60"
                 >
-                  Request a consultation
+                  {submitting ? "Sending…" : "Request a consultation"}
                 </button>
+                {error && (
+                  <p className="text-sm text-maroon" role="alert">
+                    {error}
+                  </p>
+                )}
                 <WhatsAppButton />
               </form>
             ) : (
