@@ -345,31 +345,96 @@ export const testimonials = [
   },
 ];
 
-export const gearCatalog = [
+// Rental prices are per shoot day, in Naira (numbers). Items without a price
+// are quoted on request. `note` shows under the category heading. `image` is a
+// path under /public (e.g. "/gear/sony-fx3.jpg") — drop real photos in and
+// reference them here; items without one show a placeholder.
+export type GearItem = { name: string; price?: number; image?: string };
+
+export const gearCatalog: {
+  category: string;
+  note?: string;
+  items: GearItem[];
+}[] = [
   {
     category: "Cameras",
-    items: ["Sony FX3", "Sony A7S III", "Sony FX30"],
+    items: [
+      { name: "Sony FX3" },
+      { name: "Sony A7S III" },
+      { name: "Sony FX30" },
+    ],
   },
   {
     category: "Lenses",
     items: [
-      "Sony 24-70mm GM",
-      "Sony 16-35mm GM",
-      "Sony 50mm GM 1.4",
-      "Sony 85mm GM 1.4",
-      "Sony 16mm 1.4",
-      "Sony 50mm 1.8",
+      {
+        name: "Sony 24-70mm GM",
+        price: 30000,
+        image: "/gear/sony-24-70mm-gm.jpg",
+      },
+      {
+        name: "Sony 16-35mm GM",
+        price: 40000,
+        image: "/gear/sony-16-35mm-gm.jpg",
+      },
+      {
+        name: "Sony 50mm GM 1.4",
+        price: 40000,
+        image: "/gear/sony-50mm-gm-1-4.jpg",
+      },
+      {
+        name: "Sony 85mm GM 1.4",
+        price: 40000,
+        image: "/gear/sony-85mm-gm-1-4.jpg",
+      },
+      { name: "Sony 16mm 1.4" },
+      { name: "Sony 50mm 1.8", price: 15000, image: "/gear/sony-50mm-1-8.jpg" },
     ],
   },
   {
     category: "Lights",
-    items: ["Sutefoto Light", "Aputure 300D", "Aputure 300X"],
+    note: "Each light comes with a stand and softbox.",
+    items: [
+      { name: "Sutefoto Light", price: 25000, image: "/gear/sutefoto-light.jpg" },
+      { name: "Aputure 300D", price: 30000, image: "/gear/aputure-300d.jpg" },
+      { name: "Aputure 300X", price: 35000, image: "/gear/aputure-300x.jpg" },
+      { name: "Matte Light", price: 25000, image: "/gear/matte-light.jpg" },
+      {
+        name: "Ulanzi Inflatable Tube Light",
+        price: 10000,
+        image: "/gear/ulanzi-tube-light.jpg",
+      },
+      { name: "Tube Light", price: 10000, image: "/gear/tube-light.jpg" },
+    ],
   },
   {
     category: "Accessories",
-    items: ["DJI RS5 Gimbal", "Tripod", "C-Stand", "Insta360 X5"],
+    items: [
+      {
+        name: "DJI RS5 Gimbal",
+        price: 40000,
+        image: "/gear/dji-rs5-gimbal.jpg",
+      },
+      {
+        name: "Yunteng Tripod",
+        price: 5000,
+        image: "/gear/yunteng-tripod.jpg",
+      },
+      {
+        name: "Heavy Duty Tripod",
+        price: 10000,
+        image: "/gear/heavy-duty-tripod.jpg",
+      },
+      { name: "C-Stand", price: 10000, image: "/gear/c-stand.jpg" },
+      { name: "Insta360 X5", price: 50000, image: "/gear/insta360-x5.jpg" },
+    ],
   },
 ];
+
+// Format a Naira amount, e.g. 30000 -> "₦30,000".
+export function formatNaira(amount: number): string {
+  return `₦${amount.toLocaleString("en-NG")}`;
+}
 
 export const rentalTerms = {
   returnPolicy:

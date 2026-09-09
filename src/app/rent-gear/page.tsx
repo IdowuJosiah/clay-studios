@@ -3,43 +3,86 @@
 import { useState, type FormEvent } from "react";
 import Pill from "@/components/Pill";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { business, gearCatalog, rentalTerms } from "@/lib/content";
+import {
+  business,
+  gearCatalog,
+  rentalTerms,
+  formatNaira,
+} from "@/lib/content";
 import { submitToFormspree, buildMailto } from "@/lib/formspree";
 
 export default function RentGearPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  // Cart: item name -> quantity.
+  const [qty, setQty] = useState<Record<string, number>>({});
   // Today's date (YYYY-MM-DD) so the date pickers can't select past days.
   const today = new Date().toISOString().split("T")[0];
 
+  const allItems = gearCatalog.flatMap((g) => g.items);
+  const selected = allItems.filter((i) => (qty[i.name] ?? 0) > 0);
+  const total = selected.reduce(
+    (sum, i) => sum + (i.price ?? 0) * (qty[i.name] ?? 0),
+    0,
+  );
+  const hasPriced = selected.some((i) => i.price != null);
+  const totalLabel = hasPriced ? formatNaira(total) : "On request";
+
+  function add(name: string) {
+    setQty((q) => ({ ...q, [name]: (q[name] ?? 0) + 1 }));
+  }
+  function remove(name: string) {
+    setQty((q) => {
+      const next = { ...q };
+      const n = (next[name] ?? 0) - 1;
+      if (n <= 0) delete next[name];
+      else next[name] = n;
+      return next;
+    });
+  }
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (selected.length === 0) {
+      setError("Add at least one item to your request.");
+      return;
+    }
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
     const name = String(data.name ?? "").trim();
+    const gearLines = selected
+      .map((i) => {
+        const q = qty[i.name];
+        return i.price != null
+          ? `${i.name} × ${q} — ${formatNaira(i.price)}/day (${formatNaira(i.price * q)})`
+          : `${i.name} × ${q} — On request`;
+      })
+      .join("\n");
+
     setSubmitting(true);
     setError("");
     const subject = `New rental request${
       name ? ` from ${name}` : ""
     } — Clay Studio Creations`;
+    const payload = {
+      Name: data.name,
+      Phone: data.phone,
+      Email: data.email,
+      "Pick-up date": data.pickupDate,
+      "Return date": data.returnDate,
+      "Gear requested": gearLines,
+      "Estimated total (per day)": totalLabel,
+      _subject: subject,
+      _replyto: String(data.email ?? ""),
+      _gotcha: data._gotcha,
+    };
     try {
-      await submitToFormspree({
-        Name: data.name,
-        Phone: data.phone,
-        Email: data.email,
-        "ID type": data.idType,
-        "Gear to rent": data.gear,
-        "Pick-up date": data.pickupDate,
-        "Return date": data.returnDate,
-        _subject: subject,
-        _replyto: String(data.email ?? ""),
-        _gotcha: data._gotcha,
-      });
+      await submitToFormspree(payload);
       setSubmitted(true);
     } catch {
       // Fall back to a pre-filled email so the request still reaches us.
-      window.location.href = buildMailto(business.email, subject, data);
+      window.location.href = buildMailto(business.email, subject, payload);
       setError(
         "We're opening your email app so you can send this request to us directly.",
       );
@@ -57,12 +100,16 @@ export default function RentGearPage() {
         </h1>
         <p className="mt-4 max-w-xl text-lg text-ink/70">
           Get access to our professional cameras, lenses, lighting and
-          accessories without the commitment of buying. Rent what you need with
-          a simple sign-off.
+          accessories without the commitment of buying. Add what you need to
+          your list, drop your details, and we&apos;ll take it from there.
         </p>
 
         {/* Catalog */}
-        <div className="mt-14 grid gap-8 sm:grid-cols-2">
+        <p className="mt-8 text-sm font-medium text-ink/50">
+          Prices are per shoot day. Items without a price are quoted on
+          request. Tap “Add” to build your rental list.
+        </p>
+        <div className="mt-6 grid gap-8 sm:grid-cols-2">
           {gearCatalog.map((group) => (
             <div
               key={group.category}
@@ -72,13 +119,85 @@ export default function RentGearPage() {
                 <h2 className="font-display text-lg font-bold text-cream-50">
                   {group.category}
                 </h2>
+                {group.note && (
+                  <p className="mt-1 text-xs text-cream-50/70">{group.note}</p>
+                )}
               </div>
               <ul className="divide-y divide-line bg-cream-50">
-                {group.items.map((item) => (
-                  <li key={item} className="px-6 py-4 text-sm">
-                    {item}
-                  </li>
-                ))}
+                {group.items.map((item) => {
+                  const q = qty[item.name] ?? 0;
+                  return (
+                    <li
+                      key={item.name}
+                      className="flex items-center gap-4 px-6 py-4 text-sm"
+                    >
+                      <div className="h-14 w-14 shrink-0 overflow-hidden rounded-md border border-line bg-white">
+                        {item.image ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-cream text-ink/25">
+                            <svg
+                              viewBox="0 0 24 24"
+                              className="h-6 w-6"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              aria-hidden="true"
+                            >
+                              <rect x="3" y="5" width="18" height="14" rx="2" />
+                              <circle cx="9" cy="10" r="1.5" />
+                              <path d="M4 17l5-4 4 3 3-2 4 3" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium">{item.name}</p>
+                        <p className="font-semibold text-maroon">
+                          {item.price != null
+                            ? formatNaira(item.price)
+                            : "On request"}
+                        </p>
+                      </div>
+                      {q === 0 ? (
+                        <button
+                          type="button"
+                          onClick={() => add(item.name)}
+                          className="shrink-0 rounded-md border border-maroon px-4 py-1.5 text-xs font-semibold text-maroon transition-colors hover:bg-maroon hover:text-cream-50"
+                        >
+                          Add
+                        </button>
+                      ) : (
+                        <div className="flex shrink-0 items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => remove(item.name)}
+                            aria-label={`Remove one ${item.name}`}
+                            className="flex h-7 w-7 items-center justify-center rounded-md border border-line bg-white text-base leading-none hover:bg-cream"
+                          >
+                            −
+                          </button>
+                          <span className="w-5 text-center font-semibold">
+                            {q}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => add(item.name)}
+                            aria-label={`Add one ${item.name}`}
+                            className="flex h-7 w-7 items-center justify-center rounded-md border border-line bg-white text-base leading-none hover:bg-cream"
+                          >
+                            +
+                          </button>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -88,9 +207,7 @@ export default function RentGearPage() {
         <div className="mt-16 grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="flex flex-col gap-6">
             <div className="rounded-lg bg-maroon-900 p-8 text-cream-50">
-              <h2 className="font-display text-lg font-bold">
-                Rental terms
-              </h2>
+              <h2 className="font-display text-lg font-bold">Rental terms</h2>
               <p className="mt-3 text-sm text-cream-50/70">
                 {rentalTerms.returnPolicy}
               </p>
@@ -127,8 +244,46 @@ export default function RentGearPage() {
                   className="hidden"
                 />
                 <h2 className="font-display text-lg font-bold">
-                  Request to rent
+                  Your rental request
                 </h2>
+
+                {/* Cart summary */}
+                <div className="rounded-md border border-line bg-white p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-ink/50">
+                    Your selection
+                  </p>
+                  {selected.length === 0 ? (
+                    <p className="mt-2 text-sm text-ink/50">
+                      Add gear above to start your request.
+                    </p>
+                  ) : (
+                    <>
+                      <ul className="mt-3 flex flex-col gap-2 text-sm">
+                        {selected.map((i) => (
+                          <li
+                            key={i.name}
+                            className="flex justify-between gap-4"
+                          >
+                            <span>
+                              {i.name}
+                              {qty[i.name] > 1 ? ` × ${qty[i.name]}` : ""}
+                            </span>
+                            <span className="shrink-0 text-ink/60">
+                              {i.price != null
+                                ? formatNaira(i.price * qty[i.name])
+                                : "On request"}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-3 flex justify-between border-t border-line pt-3 text-sm font-semibold">
+                        <span>Estimated total / day</span>
+                        <span className="text-maroon">{totalLabel}</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field label="Full name" name="name" required />
                   <Field
@@ -139,39 +294,11 @@ export default function RentGearPage() {
                     numericOnly
                   />
                 </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label="Email address" name="email" type="email" required />
-                  <div>
-                    <label className="text-sm font-medium text-ink/70">
-                      Valid ID type
-                    </label>
-                    <select
-                      name="idType"
-                      required
-                      defaultValue=""
-                      className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
-                    >
-                      <option value="" disabled>
-                        Select ID type
-                      </option>
-                      <option>National ID</option>
-                      <option>Driver&apos;s License</option>
-                      <option>International Passport</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-ink/70">
-                    Gear you&apos;d like to rent
-                  </label>
-                  <textarea
-                    name="gear"
-                    required
-                    rows={3}
-                    placeholder="e.g. Sony FX3, Sony 24-70mm GM, Aputure 300D"
-                    className="mt-2 w-full rounded-md border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-maroon"
-                  />
-                </div>
+                <Field
+                  label="Email address (optional)"
+                  name="email"
+                  type="email"
+                />
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field
                     label="Pick-up date"
@@ -190,15 +317,22 @@ export default function RentGearPage() {
                 </div>
                 <label className="flex items-start gap-3 text-sm text-ink/60">
                   <input type="checkbox" required className="mt-1" />
-                  I agree to the rental terms, including the return policy
-                  and late fees above.
+                  I agree to the rental terms, including the return policy and
+                  late fees above.
                 </label>
                 <button
                   type="submit"
-                  disabled={submitting}
+                  disabled={submitting || selected.length === 0}
                   className="mt-2 inline-flex items-center justify-center rounded-md bg-maroon px-6 py-3 text-sm font-semibold text-cream-50 transition-colors hover:bg-maroon-700 disabled:opacity-60"
                 >
-                  {submitting ? "Sending…" : "Submit rental request"}
+                  {submitting
+                    ? "Sending…"
+                    : selected.length === 0
+                      ? "Add gear to request"
+                      : `Submit rental request (${selected.reduce(
+                          (n, i) => n + qty[i.name],
+                          0,
+                        )})`}
                 </button>
                 {error && (
                   <p className="text-sm text-maroon" role="alert">
@@ -216,9 +350,9 @@ export default function RentGearPage() {
                   We&apos;ve got your request.
                 </h2>
                 <p className="text-sm text-ink/60">
-                  We&apos;ll confirm availability and follow up with next
-                  steps — including finishing your biodata and reference
-                  details — by phone or email shortly.
+                  We&apos;ll confirm availability and follow up with next steps —
+                  including finishing your biodata and reference details — by
+                  phone or email shortly.
                 </p>
                 <div className="mt-2 flex flex-col gap-3 text-sm">
                   <WhatsAppButton />
