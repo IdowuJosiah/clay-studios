@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import Pill from "@/components/Pill";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { business, services, processSteps } from "@/lib/content";
-import { submitToFormspree, buildMailto } from "@/lib/formspree";
+import { submitLead, buildMailto } from "@/lib/lead";
 
 export default function BookPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -24,22 +24,28 @@ export default function BookPage() {
       name ? ` from ${name}` : ""
     } — Clay Studio Creations`;
     try {
-      await submitToFormspree({
-        Name: data.name,
-        Phone: data.phone,
-        Email: data.email,
-        "Project type": data.projectType,
-        "Project details": data.details,
-        Reference: ref,
-        _subject: subject,
-        _replyto: String(data.email ?? ""),
+      await submitLead({
+        type: "consultation",
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        projectType: data.projectType,
+        details: data.details,
+        reference: ref,
         _gotcha: data._gotcha,
       });
       setReference(ref);
       setSubmitted(true);
     } catch {
       // Fall back to a pre-filled email so the request still reaches us.
-      window.location.href = buildMailto(business.email, subject, data);
+      window.location.href = buildMailto(business.email, subject, {
+        Name: data.name,
+        Phone: data.phone,
+        Email: data.email,
+        "Project type": data.projectType,
+        "Project details": data.details,
+        Reference: ref,
+      });
       setError(
         "We're opening your email app so you can send this request to us directly.",
       );

@@ -9,37 +9,27 @@ import {
   rentalTerms,
   formatNaira,
 } from "@/lib/content";
-import { submitToFormspree, buildMailto } from "@/lib/formspree";
+import { submitLead, buildMailto } from "@/lib/lead";
 
 export default function RentGearPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  // Cart: item name -> quantity.
-  const [qty, setQty] = useState<Record<string, number>>({});
+  // Cart: names of picked items (one of each is available).
+  const [picked, setPicked] = useState<string[]>([]);
   // Today's date (YYYY-MM-DD) so the date pickers can't select past days.
   const today = new Date().toISOString().split("T")[0];
 
   const allItems = gearCatalog.flatMap((g) => g.items);
-  const selected = allItems.filter((i) => (qty[i.name] ?? 0) > 0);
-  const total = selected.reduce(
-    (sum, i) => sum + (i.price ?? 0) * (qty[i.name] ?? 0),
-    0,
-  );
+  const selected = allItems.filter((i) => picked.includes(i.name));
+  const total = selected.reduce((sum, i) => sum + (i.price ?? 0), 0);
   const hasPriced = selected.some((i) => i.price != null);
   const totalLabel = hasPriced ? formatNaira(total) : "On request";
 
-  function add(name: string) {
-    setQty((q) => ({ ...q, [name]: (q[name] ?? 0) + 1 }));
-  }
-  function remove(name: string) {
-    setQty((q) => {
-      const next = { ...q };
-      const n = (next[name] ?? 0) - 1;
-      if (n <= 0) delete next[name];
-      else next[name] = n;
-      return next;
-    });
+  function toggle(name: string) {
+    setPicked((p) =>
+      p.includes(name) ? p.filter((n) => n !== name) : [...p, name],
+    );
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -52,12 +42,11 @@ export default function RentGearPage() {
     const data = Object.fromEntries(new FormData(form).entries());
     const name = String(data.name ?? "").trim();
     const gearLines = selected
-      .map((i) => {
-        const q = qty[i.name];
-        return i.price != null
-          ? `${i.name} × ${q} — ${formatNaira(i.price)}/day (${formatNaira(i.price * q)})`
-          : `${i.name} × ${q} — On request`;
-      })
+      .map((i) =>
+        i.price != null
+          ? `${i.name} — ${formatNaira(i.price)}/day`
+          : `${i.name} — On request`,
+      )
       .join("\n");
 
     setSubmitting(true);
@@ -65,24 +54,30 @@ export default function RentGearPage() {
     const subject = `New rental request${
       name ? ` from ${name}` : ""
     } — Clay Studio Creations`;
-    const payload = {
-      Name: data.name,
-      Phone: data.phone,
-      Email: data.email,
-      "Pick-up date": data.pickupDate,
-      "Return date": data.returnDate,
-      "Gear requested": gearLines,
-      "Estimated total (per day)": totalLabel,
-      _subject: subject,
-      _replyto: String(data.email ?? ""),
-      _gotcha: data._gotcha,
-    };
     try {
-      await submitToFormspree(payload);
+      await submitLead({
+        type: "rental",
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        pickupDate: data.pickupDate,
+        returnDate: data.returnDate,
+        items: selected.map((i) => ({ name: i.name, price: i.price ?? null })),
+        totalLabel,
+        _gotcha: data._gotcha,
+      });
       setSubmitted(true);
     } catch {
       // Fall back to a pre-filled email so the request still reaches us.
-      window.location.href = buildMailto(business.email, subject, payload);
+      window.location.href = buildMailto(business.email, subject, {
+        Name: data.name,
+        Phone: data.phone,
+        Email: data.email,
+        "Pick-up date": data.pickupDate,
+        "Return date": data.returnDate,
+        "Gear requested": gearLines,
+        "Estimated total (per day)": totalLabel,
+      });
       setError(
         "We're opening your email app so you can send this request to us directly.",
       );
@@ -125,7 +120,7 @@ export default function RentGearPage() {
               </div>
               <ul className="divide-y divide-line bg-cream-50">
                 {group.items.map((item) => {
-                  const q = qty[item.name] ?? 0;
+                  const isPicked = picked.includes(item.name);
                   return (
                     <li
                       key={item.name}
@@ -164,37 +159,18 @@ export default function RentGearPage() {
                             : "On request"}
                         </p>
                       </div>
-                      {q === 0 ? (
-                        <button
-                          type="button"
-                          onClick={() => add(item.name)}
-                          className="shrink-0 rounded-md border border-maroon px-4 py-1.5 text-xs font-semibold text-maroon transition-colors hover:bg-maroon hover:text-cream-50"
-                        >
-                          Add
-                        </button>
-                      ) : (
-                        <div className="flex shrink-0 items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={() => remove(item.name)}
-                            aria-label={`Remove one ${item.name}`}
-                            className="flex h-7 w-7 items-center justify-center rounded-md border border-line bg-white text-base leading-none hover:bg-cream"
-                          >
-                            −
-                          </button>
-                          <span className="w-5 text-center font-semibold">
-                            {q}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => add(item.name)}
-                            aria-label={`Add one ${item.name}`}
-                            className="flex h-7 w-7 items-center justify-center rounded-md border border-line bg-white text-base leading-none hover:bg-cream"
-                          >
-                            +
-                          </button>
-                        </div>
-                      )}
+                      <button
+                        type="button"
+                        onClick={() => toggle(item.name)}
+                        aria-pressed={isPicked}
+                        className={`shrink-0 rounded-md border border-maroon px-4 py-1.5 text-xs font-semibold transition-colors ${
+                          isPicked
+                            ? "bg-maroon text-cream-50"
+                            : "text-maroon hover:bg-maroon hover:text-cream-50"
+                        }`}
+                      >
+                        {isPicked ? "Added ✓" : "Add"}
+                      </button>
                     </li>
                   );
                 })}
@@ -264,13 +240,10 @@ export default function RentGearPage() {
                             key={i.name}
                             className="flex justify-between gap-4"
                           >
-                            <span>
-                              {i.name}
-                              {qty[i.name] > 1 ? ` × ${qty[i.name]}` : ""}
-                            </span>
+                            <span>{i.name}</span>
                             <span className="shrink-0 text-ink/60">
                               {i.price != null
-                                ? formatNaira(i.price * qty[i.name])
+                                ? formatNaira(i.price)
                                 : "On request"}
                             </span>
                           </li>
@@ -329,10 +302,7 @@ export default function RentGearPage() {
                     ? "Sending…"
                     : selected.length === 0
                       ? "Add gear to request"
-                      : `Submit rental request (${selected.reduce(
-                          (n, i) => n + qty[i.name],
-                          0,
-                        )})`}
+                      : `Submit rental request (${selected.length})`}
                 </button>
                 {error && (
                   <p className="text-sm text-maroon" role="alert">
