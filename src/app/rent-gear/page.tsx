@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Pill from "@/components/Pill";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import {
@@ -17,8 +17,29 @@ export default function RentGearPage() {
   const [error, setError] = useState("");
   // Cart: names of picked items (one of each is available).
   const [picked, setPicked] = useState<string[]>([]);
+  // Lightbox for product images. `open` drives the animation; `photo` holds
+  // the current image (kept during the close transition).
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [photo, setPhoto] = useState({ src: "", alt: "" });
   // Today's date (YYYY-MM-DD) so the date pickers can't select past days.
   const today = new Date().toISOString().split("T")[0];
+
+  function openPhoto(src: string, alt: string) {
+    setPhoto({ src, alt });
+    setLightboxOpen(true);
+  }
+
+  useEffect(() => {
+    document.body.style.overflow = lightboxOpen ? "hidden" : "";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [lightboxOpen]);
 
   const allItems = gearCatalog.flatMap((g) => g.items);
   const selected = allItems.filter((i) => picked.includes(i.name));
@@ -126,31 +147,36 @@ export default function RentGearPage() {
                       key={item.name}
                       className="flex items-center gap-4 px-6 py-4 text-sm"
                     >
-                      <div className="h-14 w-14 shrink-0 overflow-hidden rounded-md border border-line bg-white">
-                        {item.image ? (
-                          // eslint-disable-next-line @next/next/no-img-element
+                      {item.image ? (
+                        <button
+                          type="button"
+                          onClick={() => openPhoto(item.image!, item.name)}
+                          aria-label={`View ${item.name}`}
+                          className="group/thumb h-14 w-14 shrink-0 cursor-zoom-in overflow-hidden rounded-md border border-line bg-white"
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={item.image}
                             alt={item.name}
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-cover transition-transform duration-200 group-hover/thumb:scale-110"
                           />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-cream text-ink/25">
-                            <svg
-                              viewBox="0 0 24 24"
-                              className="h-6 w-6"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              aria-hidden="true"
-                            >
-                              <rect x="3" y="5" width="18" height="14" rx="2" />
-                              <circle cx="9" cy="10" r="1.5" />
-                              <path d="M4 17l5-4 4 3 3-2 4 3" />
-                            </svg>
-                          </div>
-                        )}
-                      </div>
+                        </button>
+                      ) : (
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md border border-line bg-cream text-ink/25">
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="h-6 w-6"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            aria-hidden="true"
+                          >
+                            <rect x="3" y="5" width="18" height="14" rx="2" />
+                            <circle cx="9" cy="10" r="1.5" />
+                            <path d="M4 17l5-4 4 3 3-2 4 3" />
+                          </svg>
+                        </div>
+                      )}
                       <div className="flex-1">
                         <p className="font-medium">{item.name}</p>
                         <p className="font-semibold text-maroon">
@@ -339,6 +365,51 @@ export default function RentGearPage() {
               </div>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Product image lightbox */}
+      <div
+        onClick={() => setLightboxOpen(false)}
+        aria-hidden={!lightboxOpen}
+        className={`fixed inset-0 z-[70] flex items-center justify-center bg-ink/80 p-6 backdrop-blur-sm transition-opacity duration-300 ${
+          lightboxOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        }`}
+      >
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={`relative transition-all duration-300 ease-out ${
+            lightboxOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"
+          }`}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={photo.src || undefined}
+            alt={photo.alt}
+            className="max-h-[80vh] w-auto rounded-lg bg-white object-contain shadow-2xl"
+          />
+          <p className="mt-3 text-center text-sm font-medium text-cream-50">
+            {photo.alt}
+          </p>
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close image"
+            className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full bg-maroon text-cream-50 shadow-lg transition-colors hover:bg-maroon-700"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
