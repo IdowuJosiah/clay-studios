@@ -69,18 +69,16 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col-reverse items-start justify-between gap-4 border-t border-cream-50/10 pt-6 text-xs text-cream-50/50 md:flex-row md:items-center">
           <p>
-            © {new Date().getFullYear()} {business.name}. All rights reserved.
-          </p>
-          <p>
-            Created by{" "}
+            © {new Date().getFullYear()}{" "}
             <a
               href="https://jazzthedev.vercel.app"
               target="_blank"
               rel="noreferrer"
-              className="font-medium text-cream-50/80 underline underline-offset-2 hover:text-cream-50"
+              className="hover:text-cream-50"
             >
               jazzthedev
-            </a>
+            </a>{" "}
+            creations. All rights reserved.
           </p>
         </div>
       </div>
