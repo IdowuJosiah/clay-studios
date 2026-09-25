@@ -359,7 +359,7 @@ export const gearCatalog: {
   {
     category: "Cameras",
     items: [
-      { name: "Sony FX3" },
+      { name: "Sony FX3", price: 35000 },
       { name: "Sony A7S III", image: "/gear/sony-a7siii.jpg" },
       { name: "Sony FX30" },
       { name: "Sony A7 III", image: "/gear/sony-a7iii.jpg" },
@@ -388,7 +388,6 @@ export const gearCatalog: {
         price: 40000,
         image: "/gear/sony-85mm-gm-1-4.jpg",
       },
-      { name: "Sony 16mm 1.4" },
       { name: "Sony 50mm 1.8", price: 15000, image: "/gear/sony-50mm-1-8.jpg" },
     ],
   },
