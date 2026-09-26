@@ -359,7 +359,7 @@ export const gearCatalog: {
   {
     category: "Cameras",
     items: [
-      { name: "Sony FX3", price: 35000 },
+      { name: "Sony FX3", price: 35000, image: "/gear/sony-fx3.jpg" },
       { name: "Sony A7S III", image: "/gear/sony-a7siii.jpg" },
       { name: "Sony FX30" },
       { name: "Sony A7 III", image: "/gear/sony-a7iii.jpg" },
@@ -427,6 +427,11 @@ export const gearCatalog: {
       },
       { name: "C-Stand", price: 10000, image: "/gear/c-stand.jpg" },
       { name: "Insta360 X5", price: 50000, image: "/gear/insta360-x5.jpg" },
+      {
+        name: "Hollyland Solidcom SE Comms (set of 5)",
+        price: 50000,
+        image: "/gear/hollyland-solidcom-se.jpg",
+      },
     ],
   },
 ];
