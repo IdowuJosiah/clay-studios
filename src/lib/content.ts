@@ -361,7 +361,7 @@ export const gearCatalog: {
     items: [
       { name: "Sony FX3", price: 35000, image: "/gear/sony-fx3.jpg" },
       { name: "Sony A7S III", image: "/gear/sony-a7siii.jpg" },
-      { name: "Sony FX30" },
+      { name: "Sony FX30", price: 50000, image: "/gear/sony-fx30.jpg" },
       { name: "Sony A7 III", image: "/gear/sony-a7iii.jpg" },
     ],
   },
