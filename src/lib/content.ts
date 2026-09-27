@@ -359,10 +359,14 @@ export const gearCatalog: {
   {
     category: "Cameras",
     items: [
-      { name: "Sony FX3", price: 35000, image: "/gear/sony-fx3.jpg" },
-      { name: "Sony A7S III", image: "/gear/sony-a7siii.jpg" },
-      { name: "Sony FX30", price: 50000, image: "/gear/sony-fx30.jpg" },
-      { name: "Sony A7 III", image: "/gear/sony-a7iii.jpg" },
+      { name: "Sony FX3", price: 50000, image: "/gear/sony-fx3.jpg" },
+      {
+        name: "Sony A7S III",
+        price: 40000,
+        image: "/gear/sony-a7siii.jpg",
+      },
+      { name: "Sony FX30", price: 40000, image: "/gear/sony-fx30.jpg" },
+      { name: "Sony A7 III", price: 35000, image: "/gear/sony-a7iii.jpg" },
     ],
   },
   {
@@ -443,7 +447,7 @@ export function formatNaira(amount: number): string {
 
 export const rentalTerms = {
   returnPolicy:
-    "Your rental covers the shoot day. All equipment must be returned the following day before 8am.",
+    "All equipment must be returned by 10pm the same day. For overnight shoots, return by 7am the next morning.",
   lateFee:
     "Late returns will attract a fee based on the value of the equipment rented.",
   requirements: [
